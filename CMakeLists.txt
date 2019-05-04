@@ -27,11 +27,11 @@ target_link_libraries(Main ${ROOT_LIBRARIES})
 #------Libraries--------------------
 ## To actually compile the library
 add_library(ToyExperiment SHARED ${PROJECT_SOURCE_DIR}/src/ToyExperiment.cpp)
+target_link_libraries(ToyExperiment ${ROOT_LIBRARIES})
 target_link_libraries(Main ToyExperiment)
 
 # TODO: Understand how you could compile this as a library and then import it 
 #       in another program
-
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
