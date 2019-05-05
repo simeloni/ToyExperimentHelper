@@ -14,6 +14,10 @@ public:
 
     void addModule(ToyModule* module);
 
+    void setNRepetitions(int nRepetitions);
+    void setNData(int nData);
+    void setNMC(int nMC);
+
     void run();
 
 private:
