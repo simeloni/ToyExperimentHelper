@@ -29,8 +29,8 @@ private:
     virtual void save(){std::cout << "Saving the results" << std::endl;};
 
 private:
-    int _nRepetitions; //Number of times you want to repeat the experiment
-    int _nData;        //Number of events you want to generate
+    int _nRepetitions; //Number of times you want to repeat the experiment. Use it in the generateMC function
+    int _nData;        //Number of events you want to generate. Use it in the generate function
     int _nMC;          //Number of MC events you want to generate. This is used if the fit is a templated fit
 
     TFile* _outputFile; //This is the file into which you want to save the output of your toy experiment

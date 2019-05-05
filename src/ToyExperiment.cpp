@@ -48,29 +48,34 @@ void ToyExperiment::run() {
 
     std::vector<ToyModule*>::iterator it;
 
-    for(it=_modules.begin(); it != _modules.end(); ++it)
-        (*it)->beforeInitialize();
+    for (int i=0; i<_nRepetitions; ++i) {
 
-    initialize();
+        for(it=_modules.begin(); it != _modules.end(); ++it)
+            (*it)->beforeInitialize();
 
-    for(it=_modules.begin(); it != _modules.end(); ++it)
-        (*it)->beforeGenerate();
-    
-    generate();
-    generateMC();
-    
-    for(it=_modules.begin(); it != _modules.end(); ++it)
-        (*it)->beforeFit();
+        initialize();
 
-    fit();
-    
-    for(it=_modules.begin(); it != _modules.end(); ++it)
-        (*it)->beforeSave();
-    
-    save();
+        for(it=_modules.begin(); it != _modules.end(); ++it)
+            (*it)->beforeGenerate();
+        
+        generate();
+        generateMC();
+        
+        for(it=_modules.begin(); it != _modules.end(); ++it)
+            (*it)->beforeFit();
 
-    for(it=_modules.begin(); it != _modules.end(); ++it)
-        (*it)->afterSave();
+        fit();
+        
+        for(it=_modules.begin(); it != _modules.end(); ++it)
+            (*it)->beforeSave();
+        
+        save();
+
+        for(it=_modules.begin(); it != _modules.end(); ++it)
+            (*it)->afterSave();
+
+    }
+
 }
 
 void ToyExperiment::addModule(ToyModule* module) {

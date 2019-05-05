@@ -4,9 +4,9 @@
 #include "ToyModule.hpp"
 
 int main(int, char**) {
-    std::cout << "Hello, world!\n";
     
     ToyExperiment* experiment = new ToyExperiment();
+    experiment->setNRepetitions(10);
     
     ToyModule* module = new ToyModule();
 
