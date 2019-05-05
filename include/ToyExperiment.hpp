@@ -6,7 +6,11 @@
 #include <vector>
 #include "ToyModule.hpp"
 
+class ToyModule;
+
 class ToyExperiment {
+
+friend ToyModule;
 
 public:
     ToyExperiment();
