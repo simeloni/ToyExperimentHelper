@@ -7,6 +7,8 @@ int main(int, char**) {
     
     ToyExperiment* experiment = new ToyExperiment();
     experiment->setNRepetitions(10);
+    experiment->setNData(1000.);
+    experiment->setNMC(10000.);
     
     ToyModule* module = new ToyModule();
 
