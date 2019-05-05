@@ -3,8 +3,9 @@
 
 ToyExperiment::ToyExperiment() {
     _nData = 10;
-    _nRepetitions = 1;
-    _outputFile = new TFile("outputFile.root", "RECREATE");
+    _nMC   = 10;
+    _nRepetitions = 0;
+    _outputFileName = TString("outputFile.root");
 }
 
 ToyExperiment::~ToyExperiment() {
@@ -44,7 +45,25 @@ void ToyExperiment::setNMC(int nMC) {
     }
 }
 
+void ToyExperiment::setOutputFileName(TString outputFileName) {
+
+    if(outputFileName == TString("")){
+        std::cout << "WARNING: OutputFileName set to empty String! Using standard one" << std::endl;
+    }
+    else {
+        _outputFileName = outputFileName;
+    }
+}
+
+void ToyExperiment::createOutputFile() {
+
+    _outputFile = new TFile(_outputFileName, "RECREATE");
+
+}
+
 void ToyExperiment::run() {
+
+    createOutputFile();
 
     std::vector<ToyModule*>::iterator it;
 
