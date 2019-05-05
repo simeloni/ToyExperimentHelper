@@ -3,12 +3,16 @@
 
 #include "TFile.h"
 #include <iostream>
+#include <vector>
+#include "ToyModule.hpp"
 
 class ToyExperiment {
 
 public:
     ToyExperiment();
     ~ToyExperiment();
+
+    void addModule(ToyModule* module);
 
     void run();
 
@@ -26,6 +30,8 @@ private:
     int _nMC;          //Number of MC events you want to generate. This is used if the fit is a templated fit
 
     TFile* _outputFile; //This is the file into which you want to save the output of your toy experiment
+
+    std::vector<ToyModule*> _modules;
 };
 
 #endif
