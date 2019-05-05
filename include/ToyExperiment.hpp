@@ -23,8 +23,8 @@ public:
 private:
     //TODO: Maybe you want to return some code status and catch the error codes in the running
     virtual void initialize(){std::cout << "Initializing" << std::endl;};
-    virtual void generate(){std::cout << "Generating data" << std::endl;};
-    virtual void generateMC(){std::cout << "Generating MC" << std::endl;};
+    virtual void generate(int nData){std::cout << "Generating data" << std::endl;};
+    virtual void generateMC(int nMC){std::cout << "Generating MC" << std::endl;};
     virtual void fit(){std::cout << "Fitting" << std::endl;};
     virtual void save(){std::cout << "Saving the results" << std::endl;};
 

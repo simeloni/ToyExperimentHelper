@@ -58,8 +58,8 @@ void ToyExperiment::run() {
         for(it=_modules.begin(); it != _modules.end(); ++it)
             (*it)->beforeGenerate();
         
-        generate();
-        generateMC();
+        generate(_nData);
+        generateMC(_nMC);
         
         for(it=_modules.begin(); it != _modules.end(); ++it)
             (*it)->beforeFit();
