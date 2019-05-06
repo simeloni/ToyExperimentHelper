@@ -3,7 +3,10 @@
 
 #include <iostream>
 
+class ToyMCExperiment;
 class ToyModule {
+
+friend ToyMCExperiment;
 
 public:
     ToyModule();
@@ -14,6 +17,19 @@ public:
     virtual void beforeFit(){std::cout << "Running Module: before Fit" << std::endl;};
     virtual void beforeSave(){std::cout << "Running Module: before Save" << std::endl;};
     virtual void afterSave(){std::cout << "Running Module: after Save" << std::endl;};
+
+private:
+    void setReferenceToExperiment(*ToyMCExperiment MCExp){
+        //TODO: Check everything is okay
+        _MCExperiment = MCExp;
+    };
+
+private:
+    ToyMCExperiment* _MCExperiment;
+
+
+    };
+
 };
 
 #endif
