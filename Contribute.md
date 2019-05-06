@@ -8,8 +8,9 @@ For one feature, open a branch and when you are happy, open a merge request.
  * [ ] One constructor with non standard parameters 'a la python'
  
 ## Parameters class
- * [ ] It has to be a vector of parameters
- * [ ] It has to initialize the vector of parameters wither with a addParameter(*parameter) or with a common I/O method (e.g. xml)
+ * [X] It has to be a vector of parameters
+ * [X] It has to initialize the vector of parameters with a addParameter(*parameter)
+ * [ ] It has to initialize the vector of parameters with a common I/O method (e.g. xml)
  * [ ] It has to save itself in the same format used by the I/O method
 
 ## ToyMCExperiment
