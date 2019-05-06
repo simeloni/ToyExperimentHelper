@@ -99,7 +99,7 @@ void ToyExperiment::run() {
 
 void ToyExperiment::addModule(ToyModule* module) {
 
-    ToyModule* module_ = module.Clone();
+    ToyModule* module_ = new ToyModule(*module);
     module_->setReferenceToExperiment(this); 
 
     if (module != NULL) {
