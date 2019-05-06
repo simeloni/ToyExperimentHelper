@@ -99,11 +99,25 @@ void ToyExperiment::run() {
 
 void ToyExperiment::addModule(ToyModule* module) {
 
+    ToyModule* module_ = module.Clone();
+    module_->setReferenceToExperiment(this); 
+
     if (module != NULL) {
-        _modules.push_back(module);
+        _modules.push_back(module_);
     }
     else {
         std::cout << "WARNING: Empty module passed to ToyExperiment" << std::endl;
     }
     
 }
+/*
+void ToyExperiment::addParameters(parameters* parameters) {
+
+    if (parameter != NULL) {
+        _parameters.push_back(parameters);
+    }
+    else {
+        std::cout << "WARNING: Empty parameters passed to ToyExperiment" << std::endl;
+    }
+}
+*/
