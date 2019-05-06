@@ -1,18 +1,18 @@
-#How to contribute
+# How to contribute
 For one feature, open a branch and when you are happy, open a merge request.
 
 # TODO list
-##General coding style
+## General coding style
  * [ ] Use CXX 11
  * [ ] One default constructor with standard values
  * [ ] One constructor with non standard parameters 'a la python'
  
-##Parameters class
+## Parameters class
  * [ ] It has to be a vector of parameters
  * [ ] It has to initialize the vector of parameters wither with a addParameter(*parameter) or with a common I/O method (e.g. xml)
  * [ ] It has to save itself in the same format used by the I/O method
 
-##ToyMCExperiment
+## ToyMCExperiment
  * [ ] It has to have a addParameters() method
  * [ ] Init must NOT be virtual
  * [ ] Init must initialize the I/O file and save to it the initial values of the parameters
@@ -28,11 +28,11 @@ For one feature, open a branch and when you are happy, open a merge request.
  * [ ] Everything should be executable even though it has not been filled
  * [ ] Write a DryRun, which executes everything without saving anything to disk
 
-##ToyModule
+## ToyModule
 * [ ] One of the private members of the module class should be the reference to the experiment to which it has been assigned
 * [ ] The refence should be initialized when the module is added in the addModule function of ToyExperiment
 
-##Example modules
+## Example modules
 * [ ] Plot Module
 * [ ] Smearing module: defines some smearing factors for some of the parameters
 
