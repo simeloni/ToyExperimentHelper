@@ -6,7 +6,6 @@
 #include <iostream>
 #include <vector>
 #include "ToyModule.hpp"
-//#include "FitParams.hpp"
 
 class ToyModule;
 

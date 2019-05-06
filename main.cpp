@@ -2,6 +2,7 @@
 #include "TFile.h"
 #include "ToyExperiment.hpp"
 #include "ToyModule.hpp"
+#include "ExampleParameters.hpp"
 
 int main(int, char**) {
     
@@ -17,6 +18,8 @@ int main(int, char**) {
     module->setName("module");
     ToyModule* module1 = new ToyModule();
     module1->setName("module1");
+
+    ExampleParameters* pars = new ExampleParameters();
 
     experiment->addModule(module);
     experiment2->addModule(module);

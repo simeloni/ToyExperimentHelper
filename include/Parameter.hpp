@@ -6,9 +6,9 @@
 #include <iostream>
 #include <vector>
 
-class parameters;
+class FitParameters;
 class parameter {
-  friend class parameters;
+  friend class FitParameters;
 
 private:
   ///blind this parameter
