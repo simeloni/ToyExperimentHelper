@@ -20,7 +20,7 @@ public:
     void fix_param(std::string tobefixed);
     void take_current_as_start(); //set all parameters to current values.
     
-//protected:
+protected:
     //This method is protected since I want the specializations of these classed
     // to use it only internally!
     void addParameter(parameter* param);
