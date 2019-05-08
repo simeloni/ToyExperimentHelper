@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include "ToyModule.hpp"
+#include "FitParameters.hpp"
 
 class ToyModule;
 
@@ -16,7 +17,7 @@ public:
     ~ToyExperiment();
 
     void addModule(ToyModule* module);
-    //void addParameters(parameters* parameters);
+    void addParameters(FitParameters* parameters);
 
     void setNRepetitions(int nRepetitions);
     void setNData(int nData);
@@ -46,7 +47,7 @@ private:
     TFile* _outputFile; //This is the file into which you want to save the output of your toy experiment
 
     std::vector<ToyModule*> _modules;
-    //std::vector<Parameters*> _parameters;
+    std::vector<FitParameters*> _parameters;
 };
 
 #endif

@@ -36,7 +36,7 @@ target_link_libraries(funcs ${ROOT_LIBRARIES})
 target_link_libraries(ToyModule ${ROOT_LIBRARIES})
 target_link_libraries(Parameter funcs)
 target_link_libraries(FitParameters Parameter)
-target_link_libraries(ToyExperiment ${ROOT_LIBRARIES})
+target_link_libraries(ToyExperiment ${ROOT_LIBRARIES} FitParameters)
 target_link_libraries(Main ToyExperiment ToyModule ExampleParameters)
 
 # TODO: Understand how you could compile this as a library and then import it 

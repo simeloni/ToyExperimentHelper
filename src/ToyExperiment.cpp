@@ -110,14 +110,13 @@ void ToyExperiment::addModule(ToyModule* module) {
     }
     
 }
-/*
-void ToyExperiment::addParameters(parameters* parameters) {
 
-    if (parameter != NULL) {
+void ToyExperiment::addParameters(FitParameters* parameters) {
+
+    if (parameters != NULL) {
         _parameters.push_back(parameters);
     }
     else {
         std::cout << "WARNING: Empty parameters passed to ToyExperiment" << std::endl;
     }
 }
-*/
