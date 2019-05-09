@@ -10,4 +10,6 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 #-----Libraries
 add_library(ExampleParameters SHARED ${PROJECT_SOURCE_DIR}/src/ExampleParameters.cpp)
+add_library(ExampleExperiment SHARED ${PROJECT_SOURCE_DIR}/src/ExampleExperiment.cpp)
 target_link_libraries(ExampleParameters FitParameters Parameter)
+target_link_libraries(ExampleExperiment ${ROOT_LIBRARIES} FitParameters Parameter)
