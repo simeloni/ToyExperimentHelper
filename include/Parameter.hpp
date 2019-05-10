@@ -49,6 +49,8 @@ private:
   double previous_measurement;
   ///do we want to vary the parameter so that it is compatible with an earlier measurement                                                                                                           
   bool gaussian_constraint;
+  ///is this parameter declared constant?
+  bool constant;
 
 public:
   //correlations                                                                                                                                                                                     
@@ -72,6 +74,7 @@ public:
     blinding_string = s;
   };
   void set_blinding(bool b, double b_scale, bool is_angle=false, std::string b_string="DefaultBlinder");
+  void set_constant(){constant = true;};
   ///set all values which make sense on initialisation                                                                                                                                               
   void init(std::string n, std::string d, double v, double min, double max);
   void init(std::string n, std::string d, double v, double min, double max, double stepsize);
@@ -99,6 +102,7 @@ public:
   int get_index() const {return index;};
   void reset_start() {value = start_value; error = 0.0;};
   bool is_blind() {return blind;};
+  bool is_constant() {return constant;}
 };
 
 #endif
