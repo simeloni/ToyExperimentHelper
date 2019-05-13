@@ -24,8 +24,6 @@ protected:
     //This method is protected since I want the specializations of these classes
     // to use it only internally!
     void addParameter(parameter* param);
-
-private: 
     std::vector<parameter*> _parameters;
 };
 
