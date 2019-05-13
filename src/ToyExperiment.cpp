@@ -3,17 +3,33 @@
 #include "TBranch.h"
 #include "TTree.h"
 #include "TString.h"
+#include <sys/stat.h>
 
 ToyExperiment::ToyExperiment() {
     _nData = 10;
     _nMC   = 10;
     _nRepetitions = 0;
     _outputFileName = TString("outputFile.root");
+
+    _dirPath     = TString("./output/")         ;
+    _xmlPath      = TString(_dirPath + "/Xml/" ) ;
+    _xmlPathTrue  = TString(_xmlPath  + "/true/" );
+    _xmlPathInit  = TString(_xmlPath  + "/init/" );
+    _xmlPathFinal = TString(_xmlPath  + "/final/");
+    
     _nParams = 0;
 }
 
 ToyExperiment::~ToyExperiment() {
 
+}
+
+void ToyExperiment::setOutputDirectory(const char* path){
+    _dirPath     = TString(path)                ;
+    _xmlPath      = TString(_dirPath + "/Xml/" ) ;
+    _xmlPathTrue  = TString(_xmlPath  + "/true/" );
+    _xmlPathInit  = TString(_xmlPath  + "/init/" );
+    _xmlPathFinal = TString(_xmlPath  + "/final/");
 }
 
 void ToyExperiment::setNRepetitions(int nRepetitions) {
@@ -100,9 +116,24 @@ void ToyExperiment::createOutputFile() {
     }
 }
 
+bool ToyExperiment::buildDirectoryTree(){
+    if (mkdir(_dirPath.Data(), S_IRWXU) != 0){
+        std::cout << "ERROR: cannot create directory " << _dirPath.Data() << std::endl;
+        return false;
+    }
+    
+    mkdir((_xmlPath     ).Data(), S_IRWXU);
+    mkdir((_xmlPathTrue ).Data(), S_IRWXU);
+    mkdir((_xmlPathInit ).Data(), S_IRWXU);
+    mkdir((_xmlPathFinal).Data(), S_IRWXU);
+
+    return true;
+}
+
 void ToyExperiment::run() {
 
     createOutputFile();
+    if (! buildDirectoryTree()) return ;
 
     std::vector<ToyModule*>::iterator it;
 
@@ -212,3 +243,5 @@ int ToyExperiment::getNParameters() {
 std::vector<FitParameters*> ToyExperiment::getParameters() {
     return _parameters;
 }
+
+char* ToyExperiment::getOutputDirectory() const { return const_cast<char*> (_dirPath.Data()) ; }

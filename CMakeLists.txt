@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+main.cppcmake_minimum_required(VERSION 3.0.0)
 project(Main VERSION 0.1.0 LANGUAGES CXX)
 
 #-------------------------------------------------------------------------------------------
@@ -12,7 +12,7 @@ set(HEADER_OUTPUT_PATH ${CMAKE_BINARY_DIR}/include)
 include(CTest)
 enable_testing()
 
-find_package(ROOT REQUIRED COMPONENTS MathMore RooFit)
+find_package(ROOT REQUIRED COMPONENTS MathMore RooFit RooFitCore)
 include(${ROOT_USE_FILE})
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
