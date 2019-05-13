@@ -30,6 +30,7 @@ public:
     void run();
 
     int getNParameters();
+    std::vector<FitParameters*> getParameters();
 
 private: 
     void createOutputFile();

@@ -3,7 +3,10 @@
 
 #include <iostream>
 #include <stdlib.h>
-#include "TString.h"
+#include <string>
+#include "ToyExperiment.hpp"
+#include <vector>
+#include "FitParameters.hpp" 
 
 class ToyExperiment;
 class ToyModule {
@@ -12,23 +15,27 @@ friend ToyExperiment;
 
 public:
     ToyModule();
-    ToyModule(const ToyModule &anotherModule); //Copy constructor
+    ToyModule(const ToyModule&);
     ~ToyModule();
 
-    void setName(TString name);
+    virtual void setName(std::string name);
 
-    virtual void beforeInitialize(){std::cout << "Running Module " << _name << ": before Initialize" << std::endl;};
-    virtual void beforeGenerate(){std::cout << "Running Module " << _name << ": before Generate" << std::endl;};
-    virtual void beforeFit(){std::cout << "Running Module " << _name << ": before Fit" << std::endl;};
-    virtual void beforeSave(){std::cout << "Running Module " << _name << ": before Save" << std::endl;};
-    virtual void afterSave(){std::cout << "Running Module " << _name << ": after Save" << std::endl;};
+    virtual void beforeInitialize(){;};
+    virtual void beforeGenerate(){;};
+    virtual void beforeFit(){;};
+    virtual void beforeSave(){;};
+    virtual void afterSave(){;};
+
+    std::string getName();
 
 private:
-    void setReferenceToExperiment(ToyExperiment* MCExp);
-
-private:
-    TString        _name;
+    std::string          _name;
     ToyExperiment* _MCExperiment;
+
+protected:
+    void setReferenceToExperiment(ToyExperiment* MCExp);
+    ToyExperiment* getExperiment(); //Return the experiment I am belonging to. 
+    std::vector<FitParameters*> getExperimentParameters(); //Return the list of parameters added to the experiment you belong to 
 };
 
 #endif

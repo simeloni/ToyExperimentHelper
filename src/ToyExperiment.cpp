@@ -144,14 +144,14 @@ void ToyExperiment::addModule(ToyModule& module) {
 
     module.setReferenceToExperiment(this); 
     _modules.push_back(&module);    
-    }
-    
+}
+
 void ToyExperiment::addParameters(FitParameters& parameters) {
 
     _parameters.push_back(&parameters);
     _nParams += parameters.nparameters();
 
-    }
+}
 
 void ToyExperiment::initialize() {
 
@@ -207,4 +207,8 @@ void ToyExperiment::save() {
 
 int ToyExperiment::getNParameters() {
     return _nParams;
+}
+
+std::vector<FitParameters*> ToyExperiment::getParameters() {
+    return _parameters;
 }
