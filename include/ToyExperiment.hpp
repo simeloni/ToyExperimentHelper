@@ -18,8 +18,8 @@ public:
     ToyExperiment();
     ~ToyExperiment();
 
-    void addModule(ToyModule* module);
-    void addParameters(FitParameters* parameters);
+    void addModule(ToyModule& module);
+    void addParameters(FitParameters& parameters);
 
     void setNRepetitions(int nRepetitions);
     void setNData(int nData);

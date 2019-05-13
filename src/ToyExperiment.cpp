@@ -140,30 +140,18 @@ void ToyExperiment::run() {
 
 }
 
-void ToyExperiment::addModule(ToyModule* module) {
+void ToyExperiment::addModule(ToyModule& module) {
 
-    ToyModule* module_ = new ToyModule(*module);
-    module_->setReferenceToExperiment(this); 
-
-    if (module != NULL) {
-        _modules.push_back(module_);
-    }
-    else {
-        std::cout << "WARNING: Empty module passed to ToyExperiment" << std::endl;
+    module.setReferenceToExperiment(this); 
+    _modules.push_back(&module);    
     }
     
-}
+void ToyExperiment::addParameters(FitParameters& parameters) {
 
-void ToyExperiment::addParameters(FitParameters* parameters) {
+    _parameters.push_back(&parameters);
+    _nParams += parameters.nparameters();
 
-    if (parameters != NULL) {
-        _parameters.push_back(parameters);
-        _nParams += parameters->nparameters();
     }
-    else {
-        std::cout << "WARNING: Empty parameters passed to ToyExperiment" << std::endl;
-    }
-}
 
 void ToyExperiment::initialize() {
 
