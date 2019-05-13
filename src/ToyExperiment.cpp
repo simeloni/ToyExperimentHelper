@@ -120,6 +120,8 @@ bool ToyExperiment::buildDirectoryTree(){
     int idx;
     struct stat info;
 
+    setOutputDirectory(_dirPath) ;
+
     TString aux = _dirPath;
     while(stat(aux.Data(), &info) == 0){
         aux = _dirPath + idx++;
