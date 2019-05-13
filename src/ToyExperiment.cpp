@@ -11,8 +11,8 @@ ToyExperiment::ToyExperiment() {
     _nRepetitions = 0;
     _outputFileName = TString("outputFile.root");
 
-    _dirPath     = TString("./output/")         ;
-    _xmlPath      = TString(_dirPath + "/Xml/" ) ;
+    _dirPath      = TString("./output")          ;
+    _xmlPath      = TString(_dirPath + "/Xml/" )  ;
     _xmlPathTrue  = TString(_xmlPath  + "/true/" );
     _xmlPathInit  = TString(_xmlPath  + "/init/" );
     _xmlPathFinal = TString(_xmlPath  + "/final/");
@@ -25,8 +25,8 @@ ToyExperiment::~ToyExperiment() {
 }
 
 void ToyExperiment::setOutputDirectory(const char* path){
-    _dirPath     = TString(path)                ;
-    _xmlPath      = TString(_dirPath + "/Xml/" ) ;
+    _dirPath      = TString(path)                 ;
+    _xmlPath      = TString(_dirPath + "/Xml/" )  ;
     _xmlPathTrue  = TString(_xmlPath  + "/true/" );
     _xmlPathInit  = TString(_xmlPath  + "/init/" );
     _xmlPathFinal = TString(_xmlPath  + "/final/");
@@ -77,7 +77,7 @@ void ToyExperiment::setOutputFileName(TString outputFileName) {
 
 void ToyExperiment::createOutputFile() {
 
-    _outputFile = new TFile(_outputFileName, "RECREATE");
+    _outputFile = new TFile(_dirPath + "/" + _outputFileName, "RECREATE");
     _outputTree = new TTree("ExperimentTree", "ExperimentTree");
 
     double val;
@@ -117,8 +117,20 @@ void ToyExperiment::createOutputFile() {
 }
 
 bool ToyExperiment::buildDirectoryTree(){
+    int idx;
+    struct stat info;
+
+    TString aux = _dirPath;
+    while(stat(aux.Data(), &info) == 0){
+        aux = _dirPath + idx++;
+        if (idx > 100){
+            std::cout << "ERROR: more than 100 directory with the same name exists" << std::endl;
+            return false;
+        }
+    }
+    setOutputDirectory(_dirPath = aux);
+    std::cout << _dirPath << std::endl;
     if (mkdir(_dirPath.Data(), S_IRWXU) != 0){
-        std::cout << "ERROR: cannot create directory " << _dirPath.Data() << std::endl;
         return false;
     }
     
@@ -127,12 +139,13 @@ bool ToyExperiment::buildDirectoryTree(){
     mkdir((_xmlPathInit ).Data(), S_IRWXU);
     mkdir((_xmlPathFinal).Data(), S_IRWXU);
 
+    createOutputFile();
+
     return true;
 }
 
 void ToyExperiment::run() {
 
-    createOutputFile();
     if (! buildDirectoryTree()) return ;
 
     std::vector<ToyModule*>::iterator it;
