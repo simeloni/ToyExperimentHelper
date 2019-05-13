@@ -33,9 +33,10 @@ add_library(Parameter SHARED ${PROJECT_SOURCE_DIR}/src/Parameter.cpp)
 add_library(FitParameters SHARED ${PROJECT_SOURCE_DIR}/src/FitParameters.cpp)
 add_library(funcs SHARED ${PROJECT_SOURCE_DIR}/src/funcs.cpp)
 target_link_libraries(funcs ${ROOT_LIBRARIES})
-target_link_libraries(ToyModule ${ROOT_LIBRARIES})
+target_link_libraries(ToyModule ${ROOT_LIBRARIES} FitParameters)
 target_link_libraries(Parameter funcs)
 target_link_libraries(FitParameters Parameter)
+target_link_libraries(ToyExperiment ${ROOT_LIBRARIES} FitParameters Parameter ToyModule)
 target_link_libraries(Main ToyExperiment ToyModule ExampleParameters ExampleExperiment ExampleModule)
 
 # TODO: Understand how you could compile this as a library and then import it 

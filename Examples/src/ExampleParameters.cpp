@@ -4,6 +4,7 @@
 ExampleParameters::ExampleParameters() {
     
     parameter* delta_RhoSq = new parameter();
+    //TODO: You should call init of the parameter here!
     delta_RhoSq->set_name("delta_RhoSq");
     delta_RhoSq->set_start_value(0.1);
     delta_RhoSq->set_min(-0.5);

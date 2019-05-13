@@ -11,6 +11,13 @@ public:
 
     ExampleExperiment();
     ~ExampleExperiment();
+
+    int getAdditional(); 
+    void setAdditional(double value);
+
+private: 
+    //Additional private parameters
+    int _additional;
 };
 
 #endif
