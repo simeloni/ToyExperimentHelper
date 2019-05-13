@@ -22,22 +22,19 @@ set(main_SRC main.cpp)
 
 #-------Executables-----------------
 add_executable(Main ${main_SRC})
+
 #----Subdirectories
 add_subdirectory(Examples)
 
 #------Libraries--------------------
-## To actually compile the library
-add_library(ToyModule SHARED ${PROJECT_SOURCE_DIR}/src/ToyModule.cpp)
-add_library(ToyExperiment SHARED ${PROJECT_SOURCE_DIR}/src/ToyExperiment.cpp)
-add_library(Parameter SHARED ${PROJECT_SOURCE_DIR}/src/Parameter.cpp)
-add_library(FitParameters SHARED ${PROJECT_SOURCE_DIR}/src/FitParameters.cpp)
-add_library(funcs SHARED ${PROJECT_SOURCE_DIR}/src/funcs.cpp)
-target_link_libraries(funcs ${ROOT_LIBRARIES})
-target_link_libraries(ToyModule ${ROOT_LIBRARIES})
-target_link_libraries(Parameter funcs)
-target_link_libraries(FitParameters Parameter)
-target_link_libraries(ToyExperiment ${ROOT_LIBRARIES})
-target_link_libraries(Main ToyExperiment ToyModule ExampleParameters)
+add_library(ToyExperimentHelper SHARED ${PROJECT_SOURCE_DIR}/src/ToyModule.cpp
+                                       ${PROJECT_SOURCE_DIR}/src/ToyExperiment.cpp
+                                       ${PROJECT_SOURCE_DIR}/src/Parameter.cpp
+                                       ${PROJECT_SOURCE_DIR}/src/FitParameters.cpp
+                                       ${PROJECT_SOURCE_DIR}/src/funcs.cpp)
+
+target_link_libraries(ToyExperimentHelper ${ROOT_LIBRARIES})
+target_link_libraries(Main ToyExperimentHelper ExampleExperiment ExampleModule ExampleParameters ${ROOT_LIBRARIES})
 
 # TODO: Understand how you could compile this as a library and then import it 
 #       in another program

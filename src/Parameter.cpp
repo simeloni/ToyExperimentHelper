@@ -26,6 +26,8 @@ void parameter::init(std::string n, std::string d, double v, double min, double 
     set_error_down(0.0);
     set_unlimited(false);
     gaussian_constraint = false;
+    blind = false;
+    constant = false;
     previous_measurement = v;
     correlations.clear();
 }
@@ -44,6 +46,8 @@ void parameter::init(std::string n, std::string d, double v, double min, double 
     set_error_down(0.0);
     set_unlimited(false);
     gaussian_constraint = false;
+    blind = false;
+    constant = false;
     previous_measurement = v;
     correlations.clear();
 }
@@ -52,7 +56,9 @@ void parameter::init(std::string n, std::string d, double v, double min, double 
 {
     init(n, d, v, min, max, stepsize);
     previous_error = previous_measurement_error;
-    gaussian_constraint = true;
+    gaussian_constraint = false;
+    constant = false;
+    blind = false;
 }
 
 void parameter::init(std::string n, std::string d, double v, double min, double max, double stepsize, bool nolimits)
