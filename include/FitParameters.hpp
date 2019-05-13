@@ -21,7 +21,7 @@ public:
     void take_current_as_start(); //set all parameters to current values.
     
 protected:
-    //This method is protected since I want the specializations of these classed
+    //This method is protected since I want the specializations of these classes
     // to use it only internally!
     void addParameter(parameter* param);
 
