@@ -117,21 +117,21 @@ void ToyExperiment::createOutputFile() {
 }
 
 bool ToyExperiment::buildDirectoryTree(){
-    int idx;
+    int idx = 1;
     struct stat info;
 
     setOutputDirectory(_dirPath) ;
 
     TString aux = _dirPath;
     while(stat(aux.Data(), &info) == 0){
-        aux = _dirPath + idx++;
+        aux = _dirPath + std::to_string(idx++);
         if (idx > 100){
             std::cout << "ERROR: more than 100 directory with the same name exists" << std::endl;
             return false;
         }
     }
     setOutputDirectory(_dirPath = aux);
-    std::cout << _dirPath << std::endl;
+    
     if (mkdir(_dirPath.Data(), S_IRWXU) != 0){
         return false;
     }
