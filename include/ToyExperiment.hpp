@@ -25,7 +25,11 @@ public:
     void setNData(int nData);
     void setNMC(int nMC);
 
+    void setOutputDirectory(const char* path);
+    char* getOutputDirectory() const;
+
     void setOutputFileName(TString outputFileName);
+    bool buildDirectoryTree();
 
     void run();
 
@@ -47,7 +51,13 @@ private:
     int _nRepetitions; //Number of times you want to repeat the experiment. Use it in the generateMC function
     int _nData;        //Number of events you want to generate. Use it in the generate function
     int _nMC;          //Number of MC events you want to generate. This is used if the fit is a templated fit
-    TString _outputFileName;
+    
+    TString _outputFileName ;
+    TString _dirPath        ;
+    TString _xmlPath        ;
+    TString _xmlPathTrue    ;
+    TString _xmlPathInit    ;
+    TString _xmlPathFinal   ;
 
     int _nParams; //Keep track of the number of parameters you have added
 
