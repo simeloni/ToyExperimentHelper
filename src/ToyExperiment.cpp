@@ -11,7 +11,7 @@ ToyExperiment::ToyExperiment() {
     _nRepetitions = 0;
     _outputFileName = TString("outputFile.root");
 
-    _dirPath      = TString("./output")          ;
+    _dirPath      = TString("./outputExperiment")          ;
     _xmlPath      = TString(_dirPath + "/Xml/" )  ;
     _xmlPathTrue  = TString(_xmlPath  + "/true/" );
     _xmlPathInit  = TString(_xmlPath  + "/init/" );
