@@ -260,3 +260,19 @@ std::vector<FitParameters*> ToyExperiment::getParameters() {
 }
 
 char* ToyExperiment::getOutputDirectory() const { return const_cast<char*> (_dirPath.Data()) ; }
+
+int ToyExperiment::getNRepetitions(){
+
+    return _nRepetitions;
+}
+
+int ToyExperiment::getNData(){
+
+    return _nMC;
+}
+
+
+int ToyExperiment::getNMC(){
+    
+    return _nData;
+}

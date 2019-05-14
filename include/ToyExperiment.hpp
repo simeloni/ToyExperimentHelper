@@ -25,6 +25,10 @@ public:
     void setNData(int nData);
     void setNMC(int nMC);
 
+    int getNRepetitions();
+    int getNData();
+    int getNMC();
+
     void setOutputDirectory(const char* path);
     char* getOutputDirectory() const;
 
