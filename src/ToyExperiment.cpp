@@ -4,6 +4,7 @@
 #include "TTree.h"
 #include "TString.h"
 #include <sys/stat.h>
+#include <cmath>
 
 ToyExperiment::ToyExperiment() {
     _nData = 10;
@@ -232,9 +233,9 @@ void ToyExperiment::save() {
             par = pars->get_parameter(j);
 
             *(_fitted_values.at(par_counter))    = par->get_value();
-            *(_error_values.at(par_counter))     = par->get_error();
-            *(_errorHigh_values.at(par_counter)) = par->get_error_up();
-            *(_errorLow_values.at(par_counter))  = par->get_error_down();
+            *(_error_values.at(par_counter))     = std::abs(par->get_error());
+            *(_errorHigh_values.at(par_counter)) = std::abs(par->get_error_up());
+            *(_errorLow_values.at(par_counter))  = std::abs(par->get_error_down());
             *(_residual_values.at(par_counter))  = par->get_value() - par->get_start_value();
             double pull;
             if (par->get_value() > par->get_start_value()) pull = (par->get_value() - par->get_start_value())/par->get_error_up();
