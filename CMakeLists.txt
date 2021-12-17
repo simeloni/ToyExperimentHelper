@@ -36,6 +36,8 @@ add_library(ToyExperimentHelper SHARED ${PROJECT_SOURCE_DIR}/src/ToyModule.cpp
 target_link_libraries(ToyExperimentHelper ${ROOT_LIBRARIES})
 target_link_libraries(Main ToyExperimentHelper ExampleExperiment ExampleModule ExampleParameters ${ROOT_LIBRARIES})
 
+target_include_directories(ToyExperimentHelper PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
 # TODO: Understand how you could compile this as a library and then import it 
 #       in another program
 
