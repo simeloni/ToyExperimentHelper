@@ -10,6 +10,7 @@ ToyExperiment::ToyExperiment() {
     _nData = 10;
     _nMC   = 10;
     _nRepetitions = 0;
+    _currentRepetition = 0;
     _outputFileName = TString("outputFile.root");
 
     _dirPath      = TString("./outputExperiment")          ;
@@ -92,6 +93,7 @@ void ToyExperiment::createOutputFile() {
         for (int j=0; j<pars->nparameters(); j++){
 
             _fitted_values.push_back(new double);
+            _true_values.push_back(new double);
             _initial_values.push_back(new double);
             _errorLow_values.push_back(new double);
             _errorHigh_values.push_back(new double);
@@ -105,6 +107,7 @@ void ToyExperiment::createOutputFile() {
             TString par_name(par->get_name());
 
             _outputTree->Branch(par_name+TString("_fitted"), (_fitted_values.at(par_counter)), par_name+TString("_fitted")+TString("/D"));
+            _outputTree->Branch(par_name+TString("_true"), (_true_values.at(par_counter)), par_name+TString("_true")+TString("/D"));
             _outputTree->Branch(par_name+TString("_initial"), (_initial_values.at(par_counter)), par_name+TString("_initial")+TString("/D"));
             _outputTree->Branch(par_name+TString("_errorLow"), (_errorLow_values.at(par_counter)), par_name+TString("errorLow")+TString("/D"));
             _outputTree->Branch(par_name+TString("_errorHigh"), (_errorHigh_values.at(par_counter)), par_name+TString("errorHigh")+TString("/D"));
@@ -153,8 +156,12 @@ void ToyExperiment::run() {
 
     std::vector<ToyModule*>::iterator it;
 
+    setup();
+
     for (int i=0; i<_nRepetitions; ++i) {
 
+        _currentRepetition = i;
+        
         for(it=_modules.begin(); it != _modules.end(); ++it)
             (*it)->beforeInitialize();
 
@@ -180,6 +187,8 @@ void ToyExperiment::run() {
             (*it)->afterSave();
 
     }
+
+    closing();
     
     _outputFile->cd();
     _outputTree->Write();
@@ -233,13 +242,14 @@ void ToyExperiment::save() {
             par = pars->get_parameter(j);
 
             *(_fitted_values.at(par_counter))    = par->get_value();
+            *(_true_values.at(par_counter))    = par->get_true_value();
             *(_error_values.at(par_counter))     = std::abs(par->get_error());
             *(_errorHigh_values.at(par_counter)) = std::abs(par->get_error_up());
             *(_errorLow_values.at(par_counter))  = std::abs(par->get_error_down());
-            *(_residual_values.at(par_counter))  = par->get_value() - par->get_start_value();
+            *(_residual_values.at(par_counter))  = par->get_value() - par->get_true_value();
             double pull;
-            if (par->get_value() > par->get_start_value()) pull = (par->get_value() - par->get_start_value())/par->get_error_up();
-            else                                           pull = (par->get_value() - par->get_start_value())/par->get_error_down();
+            if (par->get_value() > par->get_true_value()) pull = (par->get_value() - par->get_true_value())/par->get_error_down();
+            else                                           pull = (par->get_value() - par->get_true_value())/par->get_error_up();
             *(_pull_values.at(par_counter))      = pull;
         
             par_counter += 1;
@@ -276,4 +286,99 @@ int ToyExperiment::getNData(){
 int ToyExperiment::getNMC(){
     
     return _nData;
+}
+
+parameter* ToyExperiment::getParameter(const char* name){
+    parameter* par = NULL; 
+    
+    for (int i=0; i<_parameters.size(); ++i){
+        FitParameters* pars = _parameters.at(i);
+        par = pars->get_parameter(name);
+        if (par != NULL){
+            return par;
+        }
+    }
+    return par;
+}
+
+void ToyExperiment::setParameterValue(const char* name, double v){
+    parameter* par = this->getParameter(name);
+    if (par != NULL){
+        par->set_value(v);
+        return;
+    }
+    std::cout << "ERROR: Parameter " << name << " not found. Not setting its value!" << std::endl;
+}
+void ToyExperiment::setParameterStartValue(const char* name, double v){
+    parameter* par = this->getParameter(name);
+    if (par != NULL){
+        par->set_start_value(v);
+        return;
+    }
+    std::cout << "ERROR: Parameter " << name << " not found. Not setting its start value!" << std::endl;
+}
+void ToyExperiment::setParameterTrueValue(const char* name, double v){
+    parameter* par = this->getParameter(name);
+    if (par != NULL){
+        par->set_true_value(v);
+        return;
+    }
+    std::cout << "ERROR: Parameter " << name << " not found. Not setting its true value!" << std::endl;
+}
+void ToyExperiment::setParameterErrorHigh(const char* name, double v){
+    parameter* par = this->getParameter(name);
+    if (par != NULL){
+        par->set_error_up(v);
+        return;
+    }
+    std::cout << "ERROR: Parameter " << name << " not found. Not setting its error up value!" << std::endl;
+}
+void ToyExperiment::setParameterErrorLow(const char* name, double v){
+    parameter* par = this->getParameter(name);
+    if (par != NULL){
+        par->set_error_down(v);
+        return;
+    }
+    std::cout << "ERROR: Parameter " << name << " not found. Not setting its error down value!" << std::endl;
+}
+
+double ToyExperiment::getParameterValue(const char* name){
+    parameter* par = this->getParameter(name);
+    if (par != NULL){
+        return par->get_value();
+    }
+    std::cout << "ERROR: Parameter " << name << " not found. Returning 0 as its value!" << std::endl; 
+    return 0.;
+}
+double ToyExperiment::getParameterStartValue(const char* name){
+    parameter* par = this->getParameter(name);
+    if (par != NULL){
+        return par->get_start_value();
+    }
+    std::cout << "ERROR: Parameter " << name << " not found. Returning 0 as its start value!" << std::endl; 
+    return 0.;
+}
+double ToyExperiment::getParameterTrueValue(const char* name){
+    parameter* par = this->getParameter(name);
+    if (par != NULL){
+        return par->get_true_value();
+    }
+    std::cout << "ERROR: Parameter " << name << " not found. Returning 0 as its true value!" << std::endl; 
+    return 0.;
+}
+double ToyExperiment::getParameterErrorHigh(const char* name){
+    parameter* par = this->getParameter(name);
+    if (par != NULL){
+        return par->get_error_up();
+    }
+    std::cout << "ERROR: Parameter " << name << " not found. Returning 0 as its error up value!" << std::endl; 
+    return 0.;
+}
+double ToyExperiment::getParameterErrorLow(const char* name){
+    parameter* par = this->getParameter(name);
+    if (par != NULL){
+        return par->get_error_down();
+    }
+    std::cout << "ERROR: Parameter " << name << " not found. Returning 0 as its error down value!" << std::endl; 
+    return 0.;
 }
