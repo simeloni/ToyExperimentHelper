@@ -23,6 +23,8 @@ private:
   std::string name;
   ///The parameter description is used by the plotter for plot captions and axis titles.                                                                                                             
   std::string description;
+  ///The true value of the parameter. This is the value used to generate the pseudo data
+  double true_value;
   ///The start value of the parameter. After every step in the toy study, the parameter is reset to this value.                                                                                      
   double start_value;
   ///The current value of the parameter                                                                                                                                                              
@@ -60,6 +62,7 @@ public:
   void set_min(double m) {min = m;};
   void set_max(double m) {max = m;};
   void set_step_size(double s) {step_size = s;};
+  void set_true_value(double t) {true_value = t;}
   void set_value(double v) {value = v;};
   void set_start_value(double v) {start_value = v;};
   void set_description(std::string d) {description = d;};
@@ -87,6 +90,7 @@ public:
   double get_max() const {return max;};
   double get_blinding_delta() const {return blinding_delta;};
   double get_step_size() const {return step_size;};
+  double get_true_value() const {return true_value;}
   double get_value() const {return value;};
   double get_start_value() const {return start_value;};
   double get_previous_error() const {return previous_error;};

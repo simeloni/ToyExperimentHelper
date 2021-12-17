@@ -19,6 +19,7 @@ void parameter::init(std::string n, std::string d, double v, double min, double 
     set_description(d);
     set_value(v);
     start_value = v;
+    true_value = v;
     set_min(min);
     set_max(max);
     set_error(0.0);
@@ -38,6 +39,7 @@ void parameter::init(std::string n, std::string d, double v, double min, double 
     set_description(d);
     set_value(v);
     start_value = v;
+    true_value = v;
     set_min(min);
     set_max(max);
     set_step_size(stepsize);
